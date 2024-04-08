@@ -4,11 +4,24 @@
 package org.homies;
 
 public class App {
-   
 
     public static void main(String[] args) {
-       //TODO: implement evrything
-       //testing  branche
-       
+
+    }
+
+    /**
+     * print all students in tabular foramt
+     */
+    static void printAllStudents() {
+        // TODO
+    }
+
+    /**
+     * print particular student
+     * 
+     * @param student
+     */
+    static void printStudent(Student student) {
+        // TODO
     }
 }
