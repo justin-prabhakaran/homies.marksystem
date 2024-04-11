@@ -3,17 +3,26 @@
  */
 package org.homies;
 
+import java.util.*;
+
+import org.homies.utiles.TablePrinter;
+
 public class App {
 
-    public static void main(String[] args) {
+    static List<Student> list = new ArrayList<>();
 
+    public static void main(String[] args) {
+        TablePrinter tablePrinter = new TablePrinter();
+        tablePrinter.addRow("justin", "asdsd", "asdas");
+        tablePrinter.addRow("justin", "asdsd", "asdas");
+        tablePrinter.printTable();
     }
 
     /**
      * print all students in tabular foramt
      */
     static void printAllStudents() {
-        // TODO
+
     }
 
     /**
