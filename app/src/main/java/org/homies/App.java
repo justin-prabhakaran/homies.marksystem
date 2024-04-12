@@ -13,8 +13,10 @@ public class App {
 
     public static void main(String[] args) {
         TablePrinter tablePrinter = new TablePrinter();
-        tablePrinter.addRow("justin", "asdsd", "asdas");
-        tablePrinter.addRow("justin", "asdsd", "asdas");
+        tablePrinter.addRow("Name", "Personality");
+        tablePrinter.addRow("Justin", "Good boy");
+        tablePrinter.addRow("Vijay", "Gay");
+        tablePrinter.addRow("Selva", "Good boy");
         tablePrinter.printTable();
     }
 
@@ -22,7 +24,7 @@ public class App {
      * print all students in tabular foramt
      */
     static void printAllStudents() {
-
+        
     }
 
     /**
