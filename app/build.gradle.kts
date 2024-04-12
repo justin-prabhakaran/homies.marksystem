@@ -23,6 +23,13 @@ dependencies {
 
     // This dependency is used by the application.
     implementation(libs.guava)
+    //mine
+    // implementation("org.nocrala.tools.texttablefmt:text-table-formatter:1.2.4")
+    // implementation("com.massisframework:j-text-utils:0.3.4")
+    // compile group: 'com.massisframework', name: 'j-text-utils', version: '0.3.4'
+
+    // implementation("org.apache.commons:commons-text:1.11.0")
+
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
