@@ -5,32 +5,56 @@ import java.util.List;
 
 public class TablePrinter {
     List<String[]> list;
-    int maxWidth;
+    int[] maxWidth;
 
     public TablePrinter() {
         this.list = new ArrayList<>();
-        this.maxWidth = 1;
+        // this.maxWidth = 1;
     }
 
     public void addRow(String... data) {
         for (int i = 0; i < data.length; i++) {
-            if (maxWidth < data[i].length()) {
-                maxWidth = data[i].length();
+            if (maxWidth == null) {
+                maxWidth = new int[data.length];
+                for (int j = 0; j < data.length; j++) {
+                    maxWidth[j] = data[j].length();
+                }
+            } else {
+                for (int j = 0; j < data.length; j++) {
+                    maxWidth[j] = Math.max(maxWidth[j], data[j].length());
+                }
             }
         }
         list.add(data);
     }
 
     public void printTable() {
+        printLine();
         for (int i = 0; i < list.size(); i++) {
-            for (String s : list.get(i)) {
-                System.out.print("| " + putSpace(s));
+            for (int j = 0; j < list.get(i).length; j++) {
+                System.out.print("|" + putSpace(list.get(i)[j], maxWidth[j]));
+
             }
+
             System.out.println("|");
+            if (i == 0) {
+                printLine();
+            }
         }
+        printLine();
     }
 
-    private String putSpace(String s) {
-        return String.format("%-" + this.maxWidth + "s", s);
+    private void printLine() {
+        for (int i = 0; i < maxWidth.length; i++) {
+            System.out.print("+");
+            for (int j = 0; j < maxWidth[i]; j++) {
+                System.out.print("-");
+            }
+        }
+        System.out.println("+");
+    }
+
+    private String putSpace(String s, int i) {
+        return String.format("%-" + i + "s", s);
     }
 }
