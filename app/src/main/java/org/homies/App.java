@@ -5,26 +5,40 @@ package org.homies;
 
 import java.util.*;
 
+
 import org.homies.utiles.TablePrinter;
+
+import com.google.common.base.Predicate;
+import com.google.common.collect.Iterables;
 
 public class App {
 
     static List<Student> list = new ArrayList<>();
 
     public static void main(String[] args) {
-        TablePrinter tablePrinter = new TablePrinter();
-        tablePrinter.addRow("Name", "Personality");
-        tablePrinter.addRow("Justin", "Good boy");
-        tablePrinter.addRow("Vijay", "Gay");
-        tablePrinter.addRow("Selva", "Good boy");
-        tablePrinter.printTable();
+        int i = 5;
+        while (i > 0) {
+            list.add(createStudent());
+            i--;
+        }
+
+        printAllStudents();
+
+        printStudent("justin");
     }
 
     /**
      * print all students in tabular foramt
      */
     static void printAllStudents() {
-        
+        Collections.sort(list, new myComparator());
+        TablePrinter tablePrinter = new TablePrinter();
+        tablePrinter.addRow("Name", "Total Marks");
+        for (Student st : list) {
+            tablePrinter.addRow(st.getName(), String.valueOf(st.getMarks().getTotal()));
+        }
+
+        tablePrinter.printTable();
     }
 
     /**
@@ -32,7 +46,55 @@ public class App {
      * 
      * @param student
      */
-    static void printStudent(Student student) {
-        // TODO
+    static void printStudent(String name) {
+        TablePrinter tablePrinter = new TablePrinter();
+        tablePrinter.addRow("Name", "Mark 1", "Mark 2", "Mark 3", "Mark 4", "Mark 5", "Mark 6");
+
+        Student st = Iterables.tryFind(list, new Predicate<Student>() {
+
+            @Override
+            public boolean apply(Student input) {
+                return name.equals(input.getName());
+
+            }
+        }).orNull();
+        if (st != null) {
+
+            Mark mark = st.getMarks();
+            tablePrinter.addRow(st.getName(), ToString(mark.getMark1()), ToString(mark.getMark2()),
+                    ToString(mark.getMark3()), ToString(mark.getMark4()),
+                    ToString(mark.getMark5()), ToString(mark.getMark6()));
+
+            tablePrinter.printTable();
+        } else {
+            System.out.println("No result found !!");
+
+        }
+    }
+
+    static Student createStudent() {
+        Student st = new Student();
+
+        st.setName("justin");
+        // for test sorting
+        st.setMarks(new Mark(10 + new Random().nextInt(100), 10, 10, 10, 10, 10));
+
+        return st;
+    }
+
+    void sortStudents(List<Student> students) {
+
+    }
+
+    static String ToString(int val) {
+        return String.valueOf(val);
+    }
+}
+
+class myComparator implements Comparator<Student> {
+
+    @Override
+    public int compare(Student o1, Student o2) {
+        return o1.getMarks().getTotal() - o2.getMarks().getTotal();
     }
 }
