@@ -29,14 +29,20 @@ public class TablePrinter {
     }
 
     public void printTable() {
+
         printLine();
         for (int i = 0; i < list.size(); i++) {
             for (int j = 0; j < list.get(i).length; j++) {
-                System.out.print("|" + putSpace(list.get(i)[j], maxWidth[j]));
+                try {
+                    Thread.sleep(50);
+                } catch (Exception e) {
+                    // TODO: handle exception
+                }
+                System.out.print("|" + putSpace(list.get(i)[j], maxWidth[j])); // |
 
             }
 
-            System.out.println("|");
+            System.out.println("|"); // |
             if (i == 0) {
                 printLine();
             }
@@ -46,15 +52,21 @@ public class TablePrinter {
 
     private void printLine() {
         for (int i = 0; i < maxWidth.length; i++) {
-            System.out.print("+");
+            System.out.print("+"); // +
             for (int j = 0; j < maxWidth[i]; j++) {
-                System.out.print("-");
+                System.out.print("-"); // -
+                try {
+                    Thread.sleep(1);
+                } catch (Exception e) {
+                    // TODO: handle exception
+                }
             }
         }
-        System.out.println("+");
+        System.out.println("+"); // +
     }
 
     private String putSpace(String s, int i) {
+
         return String.format("%-" + i + "s", s);
     }
 }
