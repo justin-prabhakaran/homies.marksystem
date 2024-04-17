@@ -14,22 +14,23 @@ import com.google.common.collect.Iterables;
 
 public class App {
 
+    static Scanner in = new Scanner(System.in);
     static List<Student> list = new ArrayList<>();
 
     public static void main(String[] args) {
-        int i = 5;
-        while (i > 0) {
-            list.add(createStudent());
-            i--;
-        }
+        // int i = 5;
+        // while (i > 0) {
+        // list.add(createStudent());
+        // i--;
+        // }
 
         // printAllStudents();
 
         // printStudent("justin");
 
-        Scanner in = new Scanner(System.in);
         do {
-            System.out.print(ConsoleColors.CYAN + "\n1.Print All Studetns\n2.Print Student " + ConsoleColors.RESET
+            System.out.print(ConsoleColors.CYAN + "\n1.Create Student\n2.Print All Studetns\n3.Print Student "
+                    + ConsoleColors.RESET
                     + ConsoleColors.CYAN_BOLD + "\n\nEnter Options : "
                     + ConsoleColors.RESET);
             int ch = 0;
@@ -40,11 +41,17 @@ public class App {
             }
 
             switch (ch) {
+
                 case 1: {
-                    printAllStudents();
+                    Student st = createStudent();
+                    list.add(st);
                 }
                     break;
                 case 2: {
+                    printAllStudents();
+                }
+                    break;
+                case 3: {
                     System.out.print("Enter the Name : ");
                     if (in.hasNext()) {
                         String s = in.next();
@@ -110,11 +117,57 @@ public class App {
 
     static Student createStudent() {
         Student st = new Student();
-
-        st.setName("justin");
+        System.out.print("Enter Name : ");
+        if (in.hasNext()) {
+            st.setName(in.next());
+        } else {
+            System.out.println(ConsoleColors.RED + "Something went wrong !" + ConsoleColors.RESET);
+            return null;
+        }
+        System.out.println(ConsoleColors.CYAN_BOLD + "Enter Marks" + ConsoleColors.RESET);
         // for test sorting
-        st.setMarks(new Mark(10 + new Random().nextInt(100), 10, 10, 10, 10, 10));
+        // int[] arr = new int[6];
+        Mark mark = new Mark();
+        // st.setMarks(new Mark(10 + new Random().nextInt(100), 10, 10, 10, 10, 10));
+        for (int i = 1; i <= 6; i++) {
+            System.out.print("Enter Mark " + i + " : ");
+            if (in.hasNextInt()) {
+                int m = in.nextInt();
+                switch (i) {
+                    case 1: {
+                        mark.setMark1(m);
+                    }
+                        break;
+                    case 2: {
+                        mark.setMark2(m);
+                    }
+                        break;
+                    case 3: {
+                        mark.setMark3(m);
+                    }
+                        break;
+                    case 4: {
+                        mark.setMark4(m);
+                    }
+                        break;
+                    case 5: {
+                        mark.setMark5(m);
+                    }
+                    case 6: {
+                        mark.setMark6(m);
+                    }
+                        break;
 
+                    default: {
+                        System.out.println(ConsoleColors.RED + "Something went wrong !!" + ConsoleColors.RESET);
+                        return null;
+
+                    }
+                }
+            }
+        }
+
+        st.setMarks(mark);
         return st;
     }
 
@@ -123,7 +176,7 @@ public class App {
     }
 
     // int tes() {
-    //     return 1 + 1;
+    // return 1 + 1;
     // }
 
 }
