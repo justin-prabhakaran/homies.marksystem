@@ -22,6 +22,7 @@ public class Mark {
      * 
      * @return total
      */
+    
     int getTotal() {
         return this.mark1 + this.mark2 + this.mark3 + this.mark4 + this.mark5 + this.mark6;
     }

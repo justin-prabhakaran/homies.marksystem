@@ -5,9 +5,10 @@ package org.homies;
 
 import java.util.*;
 
-
+import org.homies.utiles.ConsoleColors;
 import org.homies.utiles.TablePrinter;
 
+import com.google.common.base.Optional;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 
@@ -22,9 +23,42 @@ public class App {
             i--;
         }
 
-        printAllStudents();
+        // printAllStudents();
 
-        printStudent("justin");
+        // printStudent("justin");
+
+        Scanner in = new Scanner(System.in);
+        do {
+            System.out.print(ConsoleColors.CYAN + "\n1.Print All Studetns\n2.Print Student " + ConsoleColors.RESET
+                    + ConsoleColors.CYAN_BOLD + "\n\nEnter Options : "
+                    + ConsoleColors.RESET);
+            int ch = 0;
+            if (in.hasNextInt()) {
+                ch = in.nextInt();
+            } else {
+                break;
+            }
+
+            switch (ch) {
+                case 1: {
+                    printAllStudents();
+                }
+                    break;
+                case 2: {
+                    System.out.print("Enter the Name : ");
+                    if (in.hasNext()) {
+                        String s = in.next();
+                        // System.out.println(s);
+                        printStudent(s);
+                    } else {
+                        printStudent("");
+                    }
+                }
+                    break;
+            }
+
+        } while (true);
+
     }
 
     /**
@@ -50,24 +84,26 @@ public class App {
         TablePrinter tablePrinter = new TablePrinter();
         tablePrinter.addRow("Name", "Mark 1", "Mark 2", "Mark 3", "Mark 4", "Mark 5", "Mark 6");
 
-        Student st = Iterables.tryFind(list, new Predicate<Student>() {
+        Optional<Student> st = Iterables.tryFind(list, new Predicate<Student>() {
 
             @Override
             public boolean apply(Student input) {
+                // System.out.println(ss + '\t' + input.getName());
                 return name.equals(input.getName());
 
             }
-        }).orNull();
-        if (st != null) {
+        });
+        if (st.isPresent()) {
 
-            Mark mark = st.getMarks();
-            tablePrinter.addRow(st.getName(), ToString(mark.getMark1()), ToString(mark.getMark2()),
+            Mark mark = st.get().getMarks();
+            tablePrinter.addRow(st.get().getName(), ToString(mark.getMark1()), ToString(mark.getMark2()),
                     ToString(mark.getMark3()), ToString(mark.getMark4()),
                     ToString(mark.getMark5()), ToString(mark.getMark6()));
 
             tablePrinter.printTable();
         } else {
-            System.out.println("No result found !!");
+            System.out.println();
+            System.out.println(ConsoleColors.RED + "No result found !!" + ConsoleColors.RESET);
 
         }
     }
@@ -82,13 +118,14 @@ public class App {
         return st;
     }
 
-    void sortStudents(List<Student> students) {
-
-    }
-
     static String ToString(int val) {
         return String.valueOf(val);
     }
+
+    // int tes() {
+    //     return 1 + 1;
+    // }
+
 }
 
 class myComparator implements Comparator<Student> {
