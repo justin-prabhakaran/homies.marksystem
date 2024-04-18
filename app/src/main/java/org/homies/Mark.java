@@ -43,6 +43,7 @@ public class Mark {
         if(getTotal() < 100) return "Study day and n8";
         else if(getTotal() <= 200 ) return "Try Hard";
         else if(getTotal() <= 300 || getTotal() <=400) return "Keep it up";
+        
         else return "very good";
     }
 
@@ -88,5 +89,15 @@ public class Mark {
 
     public void setMark6(int mark6) {
         this.mark6 = mark6;
+    }
+    public String rank(){
+        int i = 0;
+        i += 1;
+        
+        if (getTotal()<=100) {
+            return "Fail";
+        }
+
+        return String.valueOf(i);
     }
 }
