@@ -76,10 +76,10 @@ public class App {
         int rank = 0;
         Collections.sort(list,new myComparator());
         TablePrinter tablePrinter = new TablePrinter();
-        tablePrinter.addRow("Name", "Total Marks", "Rank");
+        tablePrinter.addRow("Name", "Total Marks", "Rank","Advice");
         for (Student st : list) {
             rank +=  1;
-            tablePrinter.addRow(st.getName(), String.valueOf(st.getMarks().getTotal()), String.valueOf(rank));
+            tablePrinter.addRow(st.getName(), String.valueOf(st.getMarks().getTotal()), String.valueOf(rank),st.getMarks().advice());
         }
 
         tablePrinter.printTable();
