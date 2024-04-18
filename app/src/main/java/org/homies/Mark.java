@@ -39,6 +39,12 @@ public class Mark {
     public int getMark1() {
         return mark1;
     }
+    public String advice(){
+        if(getTotal() < 100) return "Study day and n8";
+        else if(getTotal() <= 200 ) return "Try Hard";
+        else if(getTotal() <= 300 || getTotal() <=400) return "Keep it up";
+        else return "very good";
+    }
 
     public int getMark2() {
         return mark2;
