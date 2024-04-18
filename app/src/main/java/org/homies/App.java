@@ -4,11 +4,10 @@
 package org.homies;
 
 import java.util.*;
-
+import com.google.common.base.Optional;
 import org.homies.utiles.ConsoleColors;
 import org.homies.utiles.TablePrinter;
 
-import com.google.common.base.Optional;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 
@@ -16,6 +15,7 @@ public class App {
 
     static Scanner in = new Scanner(System.in);
     static List<Student> list = new ArrayList<>();
+    
 
     public static void main(String[] args) {
         // int i = 5;
@@ -29,39 +29,118 @@ public class App {
         // printStudent("justin");
 
         do {
-            System.out.print(ConsoleColors.CYAN + "\n1.Create Student\n2.Print All Studetns\n3.Print Student "
+            Scanner in = new Scanner(System.in);
+            System.out.print(ConsoleColors.CYAN + "\n1.Create Student\n2.Print All Studetns\n3.Print Student\n4.Change the Student Data"
                     + ConsoleColors.RESET
                     + ConsoleColors.CYAN_BOLD + "\n\nEnter Options : "
                     + ConsoleColors.RESET);
             int ch = 0;
             if (in.hasNextInt()) {
                 ch = in.nextInt();
-            } else {
-                break;
+            } 
+            else if(in.hasNext()){
+                System.out.println(ConsoleColors.RED + "Please choose one option from above!!" + ConsoleColors.RESET);
             }
+        
+            
+            if (ch !=0) {
+                switch (ch) {
 
-            switch (ch) {
+                    case 1: {
+                        Student st = createStudent();
+                        list.add(st);
+                    }
+                        break;
+                    case 2: {
+                        printAllStudents();
+                    }
+                        break;
+                    case 3: {
+                        System.out.print("Enter the Name : ");
+                        if (in.hasNext()) {
+                            String s = in.next();
+                            printStudent(s);
+                        } else {
+                            printStudent("");
+                        }
+                    }
+                    break;
+                    case 4:{
+                        System.out.print("Enter the Name : ");
+                        if (in.hasNext()) {
+                            String studentName = in.next();
+                            java.util.Optional<Student> optionalStudent = list.stream()
+                                    .filter(student -> student.getName().equals(studentName))
+                                    .findFirst();
 
-                case 1: {
-                    Student st = createStudent();
-                    list.add(st);
-                }
+                            if (optionalStudent.isPresent()) {
+                                Student studentToUpdate = optionalStudent.get();
+                                Mark mark = studentToUpdate.getMarks(); // Get the Mark object associated with the student
+                                System.out.println();
+                                System.out.println("Your Current Mark list");
+                                System.out.println();
+                                printStudent(studentName);
+
+                                System.out.println(ConsoleColors.CYAN + "\n1.OOSE\n2.CS\n3.EWIOT\n4.NWS\n5.DM\n6.E&AI"
+                                        + ConsoleColors.RESET
+                                        + ConsoleColors.CYAN_BOLD + "\n\nEnter Options : "
+                                        + ConsoleColors.RESET);
+                                int changeData = in.nextInt();
+
+                                switch (changeData) {
+                                    case 1:
+                                        System.out.print("Enter the Change data for OOSE:");
+                                        int markChange = in.nextInt();
+                                        mark.setMark1(markChange);
+                                        System.out.println("Updated Successfully!!!");
+                                        break;
+                                    case 2:
+                                        System.out.print("Enter the Change data for CS:");
+                                        markChange = in.nextInt();
+                                        mark.setMark2(markChange);
+                                        System.out.println("Updated Successfully!!!");
+                                        break;
+                                    case 3:
+                                        System.out.print("Enter the Change data for EWIOT:");
+                                        markChange = in.nextInt();
+                                        mark.setMark3(markChange);
+                                        System.out.println("Updated Successfully!!!");
+                                        break;
+                                    case 4:
+                                        System.out.print("Enter the Change data for NWS:");
+                                        markChange = in.nextInt();
+                                        mark.setMark4(markChange);
+                                        System.out.println("Updated Successfully!!!");
+                                        break;
+                                    case 5:
+                                        System.out.print("Enter the Change data for DM:");
+                                        markChange = in.nextInt();
+                                        mark.setMark5(markChange);
+                                        System.out.println("Updated Successfully!!!");
+                                        break;
+                                    case 6:
+                                        System.out.print("Enter the Change data for E&AI:");
+                                        markChange = in.nextInt();
+                                        mark.setMark6(markChange);
+                                        System.out.println("Updated Successfully!!!");
+                                        break;
+
+                                    default:
+                                        break;
+                                }
+                            } else {
+                                System.out.println(ConsoleColors.RED + "Student with name '" + studentName + "' not found!" + ConsoleColors.RESET);
+                            }
+                        } else {
+                            System.out.println(ConsoleColors.RED + "Please enter a valid student name!" + ConsoleColors.RESET);
+                        }
+                    }
                     break;
-                case 2: {
-                    printAllStudents();
-                }
-                    break;
-                case 3: {
-                    System.out.print("Enter the Name : ");
-                    if (in.hasNext()) {
-                        String s = in.next();
-                        // System.out.println(s);
-                        printStudent(s);
-                    } else {
-                        printStudent("");
+                    default: {
+                        System.out.println(ConsoleColors.RED + "Please choose one option from above!!" + ConsoleColors.RESET);
+
                     }
                 }
-                    break;
             }
 
         } while (true);
@@ -91,6 +170,7 @@ public class App {
      * @param student
      */
     static void printStudent(String name) {
+        
         TablePrinter tablePrinter = new TablePrinter();
         tablePrinter.addRow("Name", "OOSE", "CS", "EWIOT", "NWS", "DM", "E&AI");
 
