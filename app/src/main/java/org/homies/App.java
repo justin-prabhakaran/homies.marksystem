@@ -72,11 +72,14 @@ public class App {
      * print all students in tabular foramt
      */
     static void printAllStudents() {
-        Collections.sort(list, new myComparator());
+        // list.sort(new myComparator());
+        int rank = 0;
+        Collections.sort(list,new myComparator());
         TablePrinter tablePrinter = new TablePrinter();
-        tablePrinter.addRow("Name", "Total Marks");
+        tablePrinter.addRow("Name", "Total Marks", "Rank");
         for (Student st : list) {
-            tablePrinter.addRow(st.getName(), String.valueOf(st.getMarks().getTotal()));
+            rank +=  1;
+            tablePrinter.addRow(st.getName(), String.valueOf(st.getMarks().getTotal()), String.valueOf(rank));
         }
 
         tablePrinter.printTable();
@@ -89,7 +92,7 @@ public class App {
      */
     static void printStudent(String name) {
         TablePrinter tablePrinter = new TablePrinter();
-        tablePrinter.addRow("Name", "Mark 1", "Mark 2", "Mark 3", "Mark 4", "Mark 5", "Mark 6");
+        tablePrinter.addRow("Name", "OOSE", "CS", "EWIOT", "NWS", "DM", "E&AI");
 
         Optional<Student> st = Iterables.tryFind(list, new Predicate<Student>() {
 
@@ -127,13 +130,14 @@ public class App {
         System.out.println(ConsoleColors.CYAN_BOLD + "Enter Marks" + ConsoleColors.RESET);
         // for test sorting
         // int[] arr = new int[6];
+        String[] marks ={"OOSE","Cloud Service","Embedded With iot","NetWork Security","Digital Markating", "DSA"}; 
         Mark mark = new Mark();
         // st.setMarks(new Mark(10 + new Random().nextInt(100), 10, 10, 10, 10, 10));
-        for (int i = 1; i <= 6; i++) {
-            System.out.print("Enter Mark " + i + " : ");
+        for (int i = 0; i <= marks.length-1; i++) {
+            System.out.print("Enter Mark " + marks[i] + " : ");
             if (in.hasNextInt()) {
                 int m = in.nextInt();
-                switch (i) {
+                switch (i+1) {
                     case 1: {
                         mark.setMark1(m);
                     }
@@ -185,6 +189,6 @@ class myComparator implements Comparator<Student> {
 
     @Override
     public int compare(Student o1, Student o2) {
-        return o1.getMarks().getTotal() - o2.getMarks().getTotal();
+        return o2.getMarks().getTotal() - o1.getMarks().getTotal();
     }
 }
