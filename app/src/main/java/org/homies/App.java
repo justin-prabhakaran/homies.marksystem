@@ -18,7 +18,7 @@ public class App {
     
 
     public static void main(String[] args) {
-        // int i = 5;
+        // int i = 5;1
         // while (i > 0) {
         // list.add(createStudent());
         // i--;
@@ -152,13 +152,13 @@ public class App {
      */
     static void printAllStudents() {
         // list.sort(new myComparator());
-        int rank = 0;
+        
         Collections.sort(list,new myComparator());
         TablePrinter tablePrinter = new TablePrinter();
         tablePrinter.addRow("Name", "Total Marks", "Rank","Advice");
         for (Student st : list) {
-            rank +=  1;
-            tablePrinter.addRow(st.getName(), String.valueOf(st.getMarks().getTotal()), String.valueOf(rank),st.getMarks().advice());
+            
+            tablePrinter.addRow(st.getName(), String.valueOf(st.getMarks().getTotal()), st.getMarks().rank(),st.getMarks().advice());
         }
 
         tablePrinter.printTable();
@@ -210,43 +210,54 @@ public class App {
         System.out.println(ConsoleColors.CYAN_BOLD + "Enter Marks" + ConsoleColors.RESET);
         // for test sorting
         // int[] arr = new int[6];
-        String[] marks ={"OOSE","Cloud Service","Embedded With iot","NetWork Security","Digital Markating", "DSA"}; 
+        String[] marks ={"OOSE","Cloud Service","Embedded With iot","NetWork Security","Digital Markating", "Ethics"}; 
         Mark mark = new Mark();
         // st.setMarks(new Mark(10 + new Random().nextInt(100), 10, 10, 10, 10, 10));
         for (int i = 0; i <= marks.length-1; i++) {
-            System.out.print("Enter Mark " + marks[i] + " : ");
-            if (in.hasNextInt()) {
-                int m = in.nextInt();
-                switch (i+1) {
-                    case 1: {
-                        mark.setMark1(m);
+            while(true){
+                Scanner in = new Scanner(System.in);
+                System.out.print("Enter Mark " + marks[i] + " : ");
+                if (in.hasNextInt()) {
+                    int m = in.nextInt();
+                    if (m > 100) {
+                        System.out.println(ConsoleColors.RED + "please enter mark below/equal 100" + ConsoleColors.RESET);
+                        continue;
                     }
-                        break;
-                    case 2: {
-                        mark.setMark2(m);
-                    }
-                        break;
-                    case 3: {
-                        mark.setMark3(m);
-                    }
-                        break;
-                    case 4: {
-                        mark.setMark4(m);
-                    }
-                        break;
-                    case 5: {
-                        mark.setMark5(m);
-                    }
-                    case 6: {
-                        mark.setMark6(m);
-                    }
-                        break;
+                    else{
+                        switch (i+1) {
+                            case 1: {
+                                mark.setMark1(m);
+                            }
+                                break;
+                            case 2: {
+                                mark.setMark2(m);
+                            }
+                                break;
+                            case 3: {
+                                mark.setMark3(m);
+                            }
+                                break;
+                            case 4: {
+                                mark.setMark4(m);
+                            }
+                                break;
+                            case 5: {
+                                mark.setMark5(m);
+                            }
+                            case 6: {
+                                mark.setMark6(m);
+                            }
+                                break;
 
-                    default: {
-                        System.out.println(ConsoleColors.RED + "Something went wrong !!" + ConsoleColors.RESET);
-                        return null;
+                            default: {
+                                System.out.println(ConsoleColors.RED + "Something went wrong !!" + ConsoleColors.RESET);
+                                return null;
 
+                            }
+                        }
                     }
+                    break;
+                    
                 }
             }
         }
