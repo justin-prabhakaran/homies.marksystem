@@ -15,7 +15,6 @@ public class App {
 
     static Scanner in = new Scanner(System.in);
     static List<Student> list = new ArrayList<>();
-    
 
     public static void main(String[] args) {
         // int i = 5;1
@@ -30,20 +29,19 @@ public class App {
 
         do {
             Scanner in = new Scanner(System.in);
-            System.out.print(ConsoleColors.CYAN + "\n1.Create Student\n2.Print All Studetns\n3.Print Student\n4.Change the Student Data"
+            System.out.print(ConsoleColors.CYAN
+                    + "\n1.Create Student\n2.Print All Studetns\n3.Print Student\n4.Change the Student Data"
                     + ConsoleColors.RESET
                     + ConsoleColors.CYAN_BOLD + "\n\nEnter Options : "
                     + ConsoleColors.RESET);
             int ch = 0;
             if (in.hasNextInt()) {
                 ch = in.nextInt();
-            } 
-            else if(in.hasNext()){
+            } else if (in.hasNext()) {
                 System.out.println(ConsoleColors.RED + "Please choose one option from above!!" + ConsoleColors.RESET);
             }
-        
-            
-            if (ch !=0) {
+
+            if (ch != 0) {
                 switch (ch) {
 
                     case 1: {
@@ -64,8 +62,8 @@ public class App {
                             printStudent("");
                         }
                     }
-                    break;
-                    case 4:{
+                        break;
+                    case 4: {
                         System.out.print("Enter the Name : ");
                         if (in.hasNext()) {
                             String studentName = in.next();
@@ -75,7 +73,8 @@ public class App {
 
                             if (optionalStudent.isPresent()) {
                                 Student studentToUpdate = optionalStudent.get();
-                                Mark mark = studentToUpdate.getMarks(); // Get the Mark object associated with the student
+                                Mark mark = studentToUpdate.getMarks(); // Get the Mark object associated with the
+                                                                        // student
                                 System.out.println();
                                 System.out.println("Your Current Mark list");
                                 System.out.println();
@@ -129,15 +128,18 @@ public class App {
                                         break;
                                 }
                             } else {
-                                System.out.println(ConsoleColors.RED + "Student with name '" + studentName + "' not found!" + ConsoleColors.RESET);
+                                System.out.println(ConsoleColors.RED + "Student with name '" + studentName
+                                        + "' not found!" + ConsoleColors.RESET);
                             }
                         } else {
-                            System.out.println(ConsoleColors.RED + "Please enter a valid student name!" + ConsoleColors.RESET);
+                            System.out.println(
+                                    ConsoleColors.RED + "Please enter a valid student name!" + ConsoleColors.RESET);
                         }
                     }
-                    break;
+                        break;
                     default: {
-                        System.out.println(ConsoleColors.RED + "Please choose one option from above!!" + ConsoleColors.RESET);
+                        System.out.println(
+                                ConsoleColors.RED + "Please choose one option from above!!" + ConsoleColors.RESET);
 
                     }
                 }
@@ -152,13 +154,24 @@ public class App {
      */
     static void printAllStudents() {
         // list.sort(new myComparator());
-        
-        Collections.sort(list,new myComparator());
+
+        Collections.sort(list, new myComparator());
         TablePrinter tablePrinter = new TablePrinter();
-        tablePrinter.addRow("Name", "Total Marks", "Rank","Advice");
+        tablePrinter.addRow("Name", "Total Marks", "Rank", "Advice");
+        int rank = 0;
         for (Student st : list) {
-            
-            tablePrinter.addRow(st.getName(), String.valueOf(st.getMarks().getTotal()), st.getMarks().rank(),st.getMarks().advice());
+            rank++;
+
+            // tablePrinter.addRow(st.getName(), String.valueOf(st.getMarks().getTotal()),
+            // st.getMarks().rank(),
+            // st.getMarks().advice());
+
+            if (st.getMarks().isFailed()) {
+                tablePrinter.addRow(st.getName(), ToString(st.getMarks().getTotal()), "FAIL", st.getMarks().advice());
+            } else {
+                tablePrinter.addRow(st.getName(), ToString(st.getMarks().getTotal()), ToString(rank),
+                        st.getMarks().advice());
+            }
         }
 
         tablePrinter.printTable();
@@ -170,7 +183,7 @@ public class App {
      * @param student
      */
     static void printStudent(String name) {
-        
+
         TablePrinter tablePrinter = new TablePrinter();
         tablePrinter.addRow("Name", "OOSE", "CS", "EWIOT", "NWS", "DM", "E&AI");
 
@@ -210,21 +223,22 @@ public class App {
         System.out.println(ConsoleColors.CYAN_BOLD + "Enter Marks" + ConsoleColors.RESET);
         // for test sorting
         // int[] arr = new int[6];
-        String[] marks ={"OOSE","Cloud Service","Embedded With iot","NetWork Security","Digital Markating", "Ethics"}; 
+        String[] marks = { "OOSE", "Cloud Service", "Embedded With iot", "NetWork Security", "Digital Markating",
+                "Ethics" };
         Mark mark = new Mark();
         // st.setMarks(new Mark(10 + new Random().nextInt(100), 10, 10, 10, 10, 10));
-        for (int i = 0; i <= marks.length-1; i++) {
-            while(true){
+        for (int i = 0; i <= marks.length - 1; i++) {
+            while (true) {
                 Scanner in = new Scanner(System.in);
                 System.out.print("Enter Mark " + marks[i] + " : ");
                 if (in.hasNextInt()) {
                     int m = in.nextInt();
                     if (m > 100) {
-                        System.out.println(ConsoleColors.RED + "please enter mark below/equal 100" + ConsoleColors.RESET);
+                        System.out
+                                .println(ConsoleColors.RED + "please enter mark below/equal 100" + ConsoleColors.RESET);
                         continue;
-                    }
-                    else{
-                        switch (i+1) {
+                    } else {
+                        switch (i + 1) {
                             case 1: {
                                 mark.setMark1(m);
                             }
@@ -257,7 +271,7 @@ public class App {
                         }
                     }
                     break;
-                    
+
                 }
             }
         }
@@ -280,6 +294,11 @@ class myComparator implements Comparator<Student> {
 
     @Override
     public int compare(Student o1, Student o2) {
+        if (o1.getMarks().isFailed() && !o2.getMarks().isFailed()) {
+            return 1;
+        } else if (o2.getMarks().isFailed() && !o1.getMarks().isFailed()) {
+            return -1;
+        }
         return o2.getMarks().getTotal() - o1.getMarks().getTotal();
     }
 }
