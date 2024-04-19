@@ -18,7 +18,7 @@ public class App {
     
 
     public static void main(String[] args) {
-        // int i = 5;
+        // int i = 5;1
         // while (i > 0) {
         // list.add(createStudent());
         // i--;
@@ -210,7 +210,7 @@ public class App {
         System.out.println(ConsoleColors.CYAN_BOLD + "Enter Marks" + ConsoleColors.RESET);
         // for test sorting
         // int[] arr = new int[6];
-        String[] marks ={"OOSE","Cloud Service","Embedded With iot","NetWork Security","Digital Markating", "DSA"}; 
+        String[] marks ={"OOSE","Cloud Service","Embedded With iot","NetWork Security","Digital Markating", "Ethics"}; 
         Mark mark = new Mark();
         // st.setMarks(new Mark(10 + new Random().nextInt(100), 10, 10, 10, 10, 10));
         for (int i = 0; i <= marks.length-1; i++) {
