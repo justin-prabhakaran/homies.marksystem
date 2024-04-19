@@ -1,7 +1,5 @@
 package org.homies;
 
-import org.homies.utiles.ConsoleColors;
-
 public class Mark {
     private int mark1;
     private int mark2;
@@ -41,7 +39,7 @@ public class Mark {
     public int getMark1() {
         return mark1;
     }
-    
+
     public int getMark2() {
         return mark2;
     }
@@ -86,28 +84,37 @@ public class Mark {
         this.mark6 = mark6;
     }
 
-    public String advice(){
-       if (getMark1() <35) return "Focus on OOSE Subject";
-       else if (getMark2()<35) return "Focus on CS Subject";
-       else if(getMark3()<35) return "Focus on EWIOT Subject";
-       else if(getMark4()<35) return "Focus on NW Subject";
-       else if(getMark5()<35) return "Focus on DM Subject";
-       else if(getMark6() <35) return "Focus on Ethics Subject";
-        if(getTotal() < 100) return "Study day and n8";
-        else if(getTotal() <= 200 ) return "Try Hard";
-        else if(getTotal() <= 300 || getTotal() <=400) return "Keep it up";
-        
-        else return "very good";
+    public String advice() {
+        if (this.mark1 < 35)
+            return "Focus on OOSE Subject";
+        else if (this.mark2 < 35)
+            return "Focus on CS Subject";
+        else if (this.mark3 < 35)
+            return "Focus on EWIOT Subject";
+        else if (this.mark4 < 35)
+            return "Focus on NW Subject";
+        else if (this.mark5 < 35)
+            return "Focus on DM Subject";
+        else if (this.mark6 < 35)
+            return "Focus on Ethics Subject";
+        if (getTotal() < 100)
+            return "Study day and n8";
+        else if (getTotal() <= 200)
+            return "Try Hard";
+        else if (getTotal() <= 300 || getTotal() <= 400)
+            return "Keep it up";
+
+        else
+            return "very good";
     }
 
-    public String rank(){
-        int i = 0;
-        i += 1;
-        if(getMark1() < 35 || getMark2() < 35 || getMark3() < 35 || getMark4() < 35 || getMark4()<35 || getMark5()<35 || getMark6()<35){
-            return   "FAIL" ;
-        } 
-       
+    public boolean isFailed() {
 
-        return String.valueOf(i);
+        if (this.mark1 < 35 || this.mark2 < 35 || this.mark3 < 35 || this.mark4 < 35 || this.mark5 < 35
+                || this.mark6 < 35) {
+            return true;
+        }
+        // i += 1;
+        return false;
     }
 }
